@@ -666,68 +666,13 @@
             ">
                 <!-- 左侧视频 -->
                 <div class="video-container" style="flex: 1; max-width: 35%;">
-                    <div class="video-slider" style="
-                        position: relative;
+                    <video id="video-s1" controls muted playsinline style="
                         width: 100%;
-                        overflow: hidden;
                         border-radius: 20px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                     ">
-                        <div class="video-slides" style="
-                            display: flex;
-                            transition: transform 0.3s ease-in-out;
-                            width: 100%;
-                        ">
-                            <div class="video-slide" style="min-width: 100%;">
-                                <video id="video-s1-1" controls muted playsinline style="
-                                    width: 100%;
-                                    display: block;
-                                ">
-                                    <source src="assets/videos/s1-video.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <div class="video-slide" style="min-width: 100%;">
-                                <video id="video-s1-2" controls muted playsinline style="
-                                    width: 100%;
-                                    display: block;
-                                ">
-                                    <source src="assets/videos/S12.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                        </div>
-                        
-                        <!-- 视频导航点 -->
-                        <div class="video-dots" style="
-                            position: absolute;
-                            bottom: 10px;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            display: flex;
-                            gap: 8px;
-                            z-index: 10;
-                        ">
-                            <button class="dot active" style="
-                                width: 8px;
-                                height: 8px;
-                                border-radius: 50%;
-                                border: none;
-                                background-color: white;
-                                opacity: 0.5;
-                                cursor: pointer;
-                                padding: 0;
-                            "></button>
-                            <button class="dot" style="
-                                width: 8px;
-                                height: 8px;
-                                border-radius: 50%;
-                                border: none;
-                                background-color: white;
-                                opacity: 0.2;
-                                cursor: pointer;
-                                padding: 0;
-                            "></button>
-                        </div>
-                    </div>
+                        <source src="assets/videos/s1-video.mp4" type="video/mp4">
+                    </video>
                 </div>
                 <!-- 右侧文本 -->
                 <div class="text-container" style="flex: 1; padding: 20px;">
@@ -976,6 +921,62 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 添加第二个水平滚动容器 -->
+            <div id="imageSlider2" class="image-slider" style="
+                width: 100%;
+                overflow-x: hidden;
+                white-space: nowrap;
+                position: relative;
+                margin-top: 40px;
+            ">
+                <!-- 图片容器 -->
+                <div class="slider-content reverse" style="
+                    display: inline-flex;
+                    gap: 20px;
+                    padding: 0 20px;
+                    animation: scrollReverse 30s linear infinite;
+                ">
+                    <!-- 第二组图片 W1-W6 -->
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W1.png" alt="Wave 1" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W2.png" alt="Wave 2" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W3.png" alt="Wave 3" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W4.png" alt="Wave 4" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W5.png" alt="Wave 5" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W6.png" alt="Wave 6" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <!-- 复制一组相同的图片实现无缝效果 -->
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W1.png" alt="Wave 1" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W2.png" alt="Wave 2" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W3.png" alt="Wave 3" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W4.png" alt="Wave 4" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W5.png" alt="Wave 5" style="width: 100%; border-radius: 10px;">
+                    </div>
+                    <div style="flex: 0 0 auto; width: 200px;">
+                        <img src="./assets/images/whitee/W6.png" alt="Wave 6" style="width: 100%; border-radius: 10px;">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <style>
@@ -985,6 +986,15 @@
                 }
                 100% {
                     transform: translateX(-50%);
+                }
+            }
+
+            @keyframes scrollReverse {
+                0% {
+                    transform: translateX(-50%);
+                }
+                100% {
+                    transform: translateX(0);
                 }
             }
 
@@ -1465,43 +1475,11 @@
         });
 
         // 获取视频元素
-        const video1 = document.getElementById('video-s1-1');
-        const video2 = document.getElementById('video-s1-2');
-        const videoS2 = document.getElementById('video-s2');
+        const video1 = document.getElementById('video-s1');
+        const video2 = document.getElementById('video-s2');
 
-        // S1 视频滑动功能
-        const videoSlider = document.querySelector('.video-slides');
-        const videoDots = document.querySelectorAll('.video-dots .dot');
-        let currentVideoSlide = 0;
-        const videoSlideCount = 2;
-
-        function updateVideoDots() {
-            videoDots.forEach((dot, index) => {
-                dot.style.opacity = index === currentVideoSlide ? "0.5" : "0.2";
-            });
-        }
-
-        function goToVideoSlide(index) {
-            videoSlider.style.transition = 'transform 0.8s ease-in-out';
-            currentVideoSlide = index;
-            videoSlider.style.transform = `translateX(-${currentVideoSlide * 100}%)`;
-            updateVideoDots();
-            
-            // 暂停所有视频
-            [video1, video2].forEach(video => {
-                video.pause();
-                video.currentTime = 0;
-            });
-        }
-
-        videoDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                goToVideoSlide(index);
-            });
-        });
-
-        // 为所有视频添加结束事件监听器
-        [video1, video2, videoS2].forEach(video => {
+        // 为每个视频添加结束事件监听器
+        [video1, video2].forEach(video => {
             video.addEventListener('ended', function() {
                 this.pause();  // 视频结束时暂停
                 this.currentTime = 0;  // 将播放位置重置到开始
