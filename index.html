@@ -1100,9 +1100,46 @@
                             display: block;
                         ">
                     </div>
+                    <!-- 添加新的轮播项 -->
+                    <div class="slide" style="
+                        min-width: 100%;
+                        overflow: hidden;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    ">
+                        <img src="assets/images/Clothes/model-white-shorts.jpg" alt="Model in white shorts" style="
+                            width: 100%;
+                            height: auto;
+                            display: block;
+                        ">
+                    </div>
+                    <div class="slide" style="
+                        min-width: 100%;
+                        overflow: hidden;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    ">
+                        <img src="assets/images/Clothes/model-beige-shorts.jpg" alt="Model in beige shorts" style="
+                            width: 100%;
+                            height: auto;
+                            display: block;
+                        ">
+                    </div>
+                    <div class="slide" style="
+                        min-width: 100%;
+                        overflow: hidden;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    ">
+                        <img src="assets/images/Clothes/model-white-hoodie.jpg" alt="Model in white hoodie" style="
+                            width: 100%;
+                            height: auto;
+                            display: block;
+                        ">
+                    </div>
                 </div>
 
-                <!-- 调整导航点位置 -->
+                <!-- 调整导航点位置和数量 -->
                 <div class="slider-dots" style="
                     position: absolute;
                     bottom: -25px;
@@ -1141,6 +1178,36 @@
                         cursor: pointer;
                         padding: 0;
                     "></button>
+                    <button class="dot" style="
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        border: none;
+                        background-color: #333;
+                        opacity: 0.2;
+                        cursor: pointer;
+                        padding: 0;
+                    "></button>
+                    <button class="dot" style="
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        border: none;
+                        background-color: #333;
+                        opacity: 0.2;
+                        cursor: pointer;
+                        padding: 0;
+                    "></button>
+                    <button class="dot" style="
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        border: none;
+                        background-color: #333;
+                        opacity: 0.2;
+                        cursor: pointer;
+                        padding: 0;
+                    "></button>
                 </div>
             </div>
         </div>
@@ -1149,7 +1216,7 @@
             const slider = document.querySelector('.slider');
             const dots = document.querySelectorAll('.dot');
             let currentSlide = 0;
-            const slideCount = 3;
+            const slideCount = 6;  // 更新轮播图数量
 
             function updateDots() {
                 dots.forEach((dot, index) => {
