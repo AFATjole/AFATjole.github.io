@@ -3,7 +3,8 @@
 
 /*
  * Typeface: Plein (Indian Type Foundry, via Fontshare, ITF Free Font License).
- * Only two weights are used site-wide: 300 (Light) and 400 (Regular).
+ * Only two weights are used site-wide: 300 (Light) for body text and
+ * 400 (Regular) for headings, titles and emphasis.
  * Plein covers Latin only; Chinese falls back to the system CJK sans.
  */
 @font-face {
@@ -39,7 +40,7 @@
 
 @layer base {
   html {
-    @apply bg-paper font-sans font-normal text-ink antialiased;
+    @apply bg-paper font-sans font-light text-ink antialiased;
     /* Never fake bold/italic weights the font doesn't ship. */
     font-synthesis: none;
   }
@@ -54,11 +55,11 @@
 
 /* Typography plugin: map its 500–800 weights onto Light/Regular. */
 @utility prose {
-  font-weight: 400;
-  :where(h1, h2, h3, h4, h5, h6):not(:where([class~='not-prose'] *)) {
-    font-weight: 300;
-  }
-  :where(strong, b, th, dt, a, blockquote, thead th, figcaption):not(:where([class~='not-prose'] *)) {
+  font-weight: 300;
+  :where(h1, h2, h3, h4, h5, h6, strong, b, th, dt, thead th):not(:where([class~='not-prose'] *)) {
     font-weight: 400;
+  }
+  :where(a, blockquote, figcaption):not(:where([class~='not-prose'] *)) {
+    font-weight: 300;
   }
 }
