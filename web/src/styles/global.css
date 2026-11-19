@@ -6,6 +6,11 @@
  * Only two weights are used site-wide: 300 (Light) for body text and
  * 400 (Regular) for headings, titles and emphasis.
  * Plein covers Latin only; Chinese falls back to the system CJK sans.
+ *
+ * Headings use Optima (commercial, Linotype). It is not self-hosted: it ships
+ * with macOS/iOS, so it shows there and other systems fall back to Plein.
+ * To use it everywhere, buy a webfont licence (e.g. Optima nova) and add
+ * @font-face rules for it here.
  */
 @font-face {
   font-family: 'Plein';
@@ -25,6 +30,7 @@
 @theme {
   --font-*: initial;
   --font-sans: 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-display: 'Optima', 'Optima nova LT Pro', 'Optima LT Std', 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
 
   /* Restrict Tailwind's weight utilities to the two allowed weights. */
   --font-weight-*: initial;
@@ -43,6 +49,14 @@
     @apply bg-paper font-sans font-light text-ink antialiased;
     /* Never fake bold/italic weights the font doesn't ship. */
     font-synthesis: none;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
   }
   /* Browser defaults would render these bold (700); keep them at 400. */
   b,
