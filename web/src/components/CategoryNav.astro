@@ -1,0 +1,32 @@
+---
+import {localePath, pick, t, type Locale} from '@/lib/i18n'
+import type {Category} from '@/lib/sanity/types'
+
+interface Props {
+  lang: Locale
+  categories: Category[]
+  /** Slug of the active category; undefined = "all". */
+  active?: string
+}
+const {lang, categories, active} = Astro.props
+const link = 'border-b-2 pb-1 text-sm transition-colors'
+---
+
+<nav class="flex flex-wrap gap-6 border-b border-line" aria-label={t(lang, 'nav.work')}>
+  <a
+    href={localePath(lang, 'work')}
+    class:list={[link, !active ? 'border-ink text-ink' : 'border-transparent text-muted hover:text-ink']}
+  >
+    {t(lang, 'work.all')}
+  </a>
+  {
+    categories.map((c) => (
+      <a
+        href={localePath(lang, `work/${c.slug}`)}
+        class:list={[link, active === c.slug ? 'border-ink text-ink' : 'border-transparent text-muted hover:text-ink']}
+      >
+        {pick(c.title, lang)}
+      </a>
+    ))
+  }
+</nav>

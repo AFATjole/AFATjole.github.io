@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHeader from '@/components/PageHeader.astro'
+import PortableText from '@/components/PortableText.astro'
+import {localeParams, pick, type Locale} from '@/lib/i18n'
+import {getPage} from '@/lib/sanity/content'
+
+export const getStaticPaths = localeParams
+
+const lang = Astro.params.lang as Locale
+const page = await getPage('page-csr')
+---
+
+<BaseLayout lang={lang} title={pick(page.title, lang)} seo={page.seo}>
+  <PageHeader lang={lang} page={page} />
+  <PortableText value={pick(page.body, lang)} class="mx-auto max-w-3xl px-4 sm:px-6" />
+</BaseLayout>

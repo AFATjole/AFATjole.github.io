@@ -1,0 +1,53 @@
+---
+import '@/styles/global.css'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import {htmlLang, locales, pick, switchLocalePath, type Locale} from '@/lib/i18n'
+import {urlFor} from '@/lib/sanity/client'
+import {getSettings} from '@/lib/sanity/content'
+import type {Seo} from '@/lib/sanity/types'
+
+interface Props {
+  lang: Locale
+  /** Page title; the site name is appended. */
+  title?: string
+  description?: string
+  seo?: Seo
+}
+
+const {lang, title, description, seo} = Astro.props
+const settings = await getSettings()
+const siteName = pick(settings.siteName, lang) ?? ''
+const metaTitle = pick(seo?.title, lang) ?? title
+const fullTitle = metaTitle ? `${metaTitle} | ${siteName}` : siteName
+const metaDescription =
+  pick(seo?.description, lang) ?? description ?? pick(settings.seo?.description, lang) ?? pick(settings.tagline, lang)
+const shareImage = seo?.image ?? settings.seo?.image
+const ogImage = shareImage?.asset ? urlFor(shareImage)?.width(1200).height(630).fit('crop').url() : undefined
+const canonical = new URL(Astro.url.pathname, Astro.site)
+---
+
+<!doctype html>
+<html lang={htmlLang[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {metaDescription && <meta name="description" content={metaDescription} />}
+    <link rel="canonical" href={canonical} />
+    {locales.map((l) => <link rel="alternate" hreflang={htmlLang[l]} href={new URL(switchLocalePath(Astro.url.pathname, l), Astro.site)} />)}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    {metaDescription && <meta property="og:description" content={metaDescription} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:locale" content={htmlLang[lang]} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header lang={lang} siteName={siteName} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} settings={settings} />
+  </body>
+</html>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PortableText from '@/components/PortableText.astro'
+import SanityImage from '@/components/SanityImage.astro'
+import WorkGrid from '@/components/WorkGrid.astro'
+import {localeParams, localePath, pick, t, type Locale} from '@/lib/i18n'
+import {getHome} from '@/lib/sanity/content'
+
+export const getStaticPaths = localeParams
+
+const lang = Astro.params.lang as Locale
+const home = await getHome()
+const {hero} = home
+---
+
+<BaseLayout lang={lang} seo={home.seo}>
+  <section class="relative">
+    {
+      hero?.video?.url ? (
+        <video class="h-[70vh] w-full object-cover" src={hero.video.url} autoplay muted loop playsinline />
+      ) : hero?.image?.asset ? (
+        <SanityImage image={hero.image} lang={lang} width={2400} aspect={16 / 9} loading="eager" class="h-[70vh]" />
+      ) : null
+    }
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <h1 class="max-w-4xl text-5xl font-semibold tracking-tight sm:text-7xl">{pick(hero?.heading, lang)}</h1>
+      {hero?.subheading && <p class="mt-6 max-w-2xl text-lg text-muted">{pick(hero.subheading, lang)}</p>}
+    </div>
+  </section>
+
+  <PortableText value={pick(home.intro, lang)} class="mx-auto mb-20 max-w-3xl px-4 sm:px-6" />
+
+  {
+    home.featured && home.featured.length > 0 && (
+      <section class="mx-auto max-w-7xl px-4 sm:px-6">
+        <div class="mb-8 flex items-end justify-between">
+          <h2 class="text-2xl font-semibold">{t(lang, 'nav.work')}</h2>
+          <a href={localePath(lang, 'work')} class="text-sm text-muted hover:text-ink">{t(lang, 'work.viewAll')} →</a>
+        </div>
+        <WorkGrid lang={lang} works={home.featured} />
+      </section>
+    )
+  }
+</BaseLayout>

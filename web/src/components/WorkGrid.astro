@@ -1,0 +1,38 @@
+---
+import SanityImage from '@/components/SanityImage.astro'
+import {localePath, pick, t, type Locale} from '@/lib/i18n'
+import type {WorkCard} from '@/lib/sanity/types'
+
+interface Props {
+  lang: Locale
+  works: WorkCard[]
+}
+const {lang, works} = Astro.props
+---
+
+{
+  works.length === 0 ? (
+    <p class="text-muted">{t(lang, 'work.empty')}</p>
+  ) : (
+    <ul class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {works.map((work) => (
+        <li>
+          <a href={localePath(lang, `work/${work.category?.slug}/${work.slug}`)} class="group block">
+            <div class="overflow-hidden">
+              <SanityImage
+                image={work.coverImage}
+                lang={lang}
+                width={800}
+                aspect={4 / 5}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                class="transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <p class="mt-4 text-xs tracking-wider text-muted uppercase">{pick(work.category?.title, lang)}</p>
+            <h3 class="mt-1 text-lg font-medium">{pick(work.title, lang)}</h3>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

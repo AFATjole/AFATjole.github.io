@@ -1,0 +1,18 @@
+---
+import {PortableText as PT} from 'astro-portabletext'
+import type {PortableTextValue} from '@/lib/sanity/types'
+
+interface Props {
+  value?: PortableTextValue | null
+  class?: string
+}
+const {value, class: className} = Astro.props
+---
+
+{
+  value && value.length > 0 && (
+    <div class:list={['prose prose-neutral max-w-none', className]}>
+      <PT value={value as any} />
+    </div>
+  )
+}

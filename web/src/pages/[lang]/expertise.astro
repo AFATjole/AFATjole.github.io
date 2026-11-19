@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHeader from '@/components/PageHeader.astro'
+import PortableText from '@/components/PortableText.astro'
+import SanityImage from '@/components/SanityImage.astro'
+import {localeParams, pick, type Locale} from '@/lib/i18n'
+import {getExpertise, getPage} from '@/lib/sanity/content'
+
+export const getStaticPaths = localeParams
+
+const lang = Astro.params.lang as Locale
+const [page, items] = await Promise.all([getPage('page-expertise'), getExpertise()])
+---
+
+<BaseLayout lang={lang} title={pick(page.title, lang)} seo={page.seo}>
+  <PageHeader lang={lang} page={page} />
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <PortableText value={pick(page.body, lang)} class="mb-16 max-w-3xl" />
+    <ul class="divide-y divide-line border-y border-line">
+      {
+        items.map((item, i) => (
+          <li class="grid gap-6 py-10 md:grid-cols-12">
+            <span class="text-sm text-muted md:col-span-1">{String(i + 1).padStart(2, '0')}</span>
+            <div class="md:col-span-6">
+              <h2 class="text-2xl font-medium">{pick(item.title, lang)}</h2>
+              {item.summary && <p class="mt-3 text-muted">{pick(item.summary, lang)}</p>}
+              <PortableText value={pick(item.body, lang)} class="mt-4" />
+            </div>
+            {item.image?.asset && (
+              <div class="md:col-span-5">
+                <SanityImage image={item.image} lang={lang} width={800} aspect={4 / 3} sizes="(min-width: 768px) 40vw, 100vw" />
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import CategoryNav from '@/components/CategoryNav.astro'
+import PageHeader from '@/components/PageHeader.astro'
+import WorkGrid from '@/components/WorkGrid.astro'
+import {localeParams, pick, type Locale} from '@/lib/i18n'
+import {getCategories, getPage, getWorks} from '@/lib/sanity/content'
+
+export const getStaticPaths = localeParams
+
+const lang = Astro.params.lang as Locale
+const [page, categories, works] = await Promise.all([getPage('page-work'), getCategories(), getWorks()])
+---
+
+<BaseLayout lang={lang} title={pick(page.title, lang)} seo={page.seo}>
+  <PageHeader lang={lang} page={page} />
+  <div class="mx-auto max-w-7xl space-y-12 px-4 sm:px-6">
+    <CategoryNav lang={lang} categories={categories} />
+    <WorkGrid lang={lang} works={works} />
+  </div>
+</BaseLayout>

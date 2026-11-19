@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import CategoryNav from '@/components/CategoryNav.astro'
+import WorkGrid from '@/components/WorkGrid.astro'
+import {locales, pick, type Locale} from '@/lib/i18n'
+import {getCategories, getWorks} from '@/lib/sanity/content'
+import type {Category} from '@/lib/sanity/types'
+
+export async function getStaticPaths() {
+  const categories = await getCategories()
+  return locales.flatMap((lang) =>
+    categories.map((category) => ({params: {lang, category: category.slug}, props: {category}})),
+  )
+}
+
+const lang = Astro.params.lang as Locale
+const {category} = Astro.props as {category: Category}
+const [categories, allWorks] = await Promise.all([getCategories(), getWorks()])
+const works = allWorks.filter((w) => w.category?.slug === category.slug)
+const title = pick(category.title, lang)
+---
+
+<BaseLayout lang={lang} title={title} description={pick(category.description, lang)}>
+  <section class="mx-auto max-w-7xl px-4 pt-16 pb-12 sm:px-6">
+    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
+    {category.description && <p class="mt-6 max-w-2xl text-lg text-muted">{pick(category.description, lang)}</p>}
+  </section>
+  <div class="mx-auto max-w-7xl space-y-12 px-4 sm:px-6">
+    <CategoryNav lang={lang} categories={categories} active={category.slug} />
+    <WorkGrid lang={lang} works={works} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-sans: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+  --color-ink: #111111;
+  --color-muted: #6b6b6b;
+  --color-line: #e5e5e5;
+  --color-paper: #ffffff;
+  --color-accent: #b4232a;
+}
+
+@layer base {
+  html {
+    @apply bg-paper text-ink antialiased;
+  }
+}

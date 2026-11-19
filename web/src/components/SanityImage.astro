@@ -1,0 +1,52 @@
+---
+import {urlFor} from '@/lib/sanity/client'
+import {pick, type Locale} from '@/lib/i18n'
+import type {Figure} from '@/lib/sanity/types'
+
+interface Props {
+  image?: Figure | null
+  lang: Locale
+  /** Largest rendered width in CSS px. */
+  width?: number
+  /** Crop to this aspect ratio (width / height), e.g. 4/3. */
+  aspect?: number
+  sizes?: string
+  class?: string
+  loading?: 'lazy' | 'eager'
+}
+
+const {image, lang, width = 1200, aspect, sizes = '100vw', class: className, loading = 'lazy'} = Astro.props
+const builder = image?.asset ? urlFor(image) : null
+const dims = image?.asset?.metadata?.dimensions
+const ratio = aspect ?? (dims ? dims.width / dims.height : 4 / 3)
+const sized = (w: number) => {
+  const b = builder!.width(w)
+  return (aspect ? b.height(Math.round(w / aspect)).fit('crop') : b).url()
+}
+const widths = [480, 800, 1200, 1600, 2400].filter((w) => w <= width * 2)
+const alt = pick(image?.alt, lang) ?? ''
+---
+
+{
+  builder ? (
+    <img
+      src={sized(width)}
+      srcset={widths.map((w) => `${sized(w)} ${w}w`).join(', ')}
+      sizes={sizes}
+      width={width}
+      height={Math.round(width / ratio)}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      class:list={['block h-auto w-full object-cover', className]}
+      style={image?.asset?.metadata?.lqip ? `background:url(${image.asset.metadata.lqip}) center/cover` : undefined}
+    />
+  ) : (
+    <div
+      class:list={['w-full bg-neutral-100', className]}
+      style={`aspect-ratio:${ratio}`}
+      role="img"
+      aria-label={alt || undefined}
+    />
+  )
+}

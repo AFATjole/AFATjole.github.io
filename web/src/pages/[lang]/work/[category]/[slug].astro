@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PortableText from '@/components/PortableText.astro'
+import SanityImage from '@/components/SanityImage.astro'
+import {localePath, locales, pick, t, type Locale} from '@/lib/i18n'
+import {getWork, getWorks} from '@/lib/sanity/content'
+
+export async function getStaticPaths() {
+  const works = await getWorks()
+  return locales.flatMap((lang) =>
+    works
+      .filter((w) => w.category?.slug)
+      .map((w) => ({params: {lang, category: w.category!.slug, slug: w.slug}})),
+  )
+}
+
+const lang = Astro.params.lang as Locale
+const work = await getWork(Astro.params.slug!)
+if (!work) throw new Error(`Work not found: ${Astro.params.slug}`)
+const title = pick(work.title, lang)
+---
+
+<BaseLayout lang={lang} title={title} description={pick(work.summary, lang)} seo={work.seo}>
+  <article class="mx-auto max-w-7xl px-4 pt-16 sm:px-6">
+    <a href={localePath(lang, `work/${work.category?.slug}`)} class="text-sm text-muted hover:text-ink">
+      ← {pick(work.category?.title, lang) ?? t(lang, 'work.back')}
+    </a>
+    <header class="mt-6 grid gap-8 lg:grid-cols-3">
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl lg:col-span-2">{title}</h1>
+      <dl class="grid grid-cols-2 gap-4 text-sm">
+        {work.client && (<div><dt class="text-muted">{t(lang, 'work.client')}</dt><dd>{work.client}</dd></div>)}
+        {work.year && (<div><dt class="text-muted">{t(lang, 'work.year')}</dt><dd>{work.year}</dd></div>)}
+      </dl>
+    </header>
+    {work.summary && <p class="mt-8 max-w-3xl text-lg text-muted">{pick(work.summary, lang)}</p>}
+
+    <div class="mt-12">
+      <SanityImage image={work.coverImage} lang={lang} width={1600} loading="eager" />
+    </div>
+
+    <PortableText value={pick(work.body, lang)} class="mx-auto mt-16 max-w-3xl" />
+
+    <div class="mt-16 space-y-6">
+      {
+        work.gallery?.map((item) =>
+          item._type === 'video' ? (
+            item.url && <video class="w-full" src={item.url} controls muted playsinline preload="metadata" />
+          ) : (
+            <SanityImage image={item} lang={lang} width={1600} />
+          ),
+        )
+      }
+    </div>
+  </article>
+</BaseLayout>

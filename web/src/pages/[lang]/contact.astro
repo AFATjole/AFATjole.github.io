@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHeader from '@/components/PageHeader.astro'
+import PortableText from '@/components/PortableText.astro'
+import {localeParams, pick, t, type Locale} from '@/lib/i18n'
+import {getPage, getSettings} from '@/lib/sanity/content'
+
+export const getStaticPaths = localeParams
+
+const lang = Astro.params.lang as Locale
+const [page, settings] = await Promise.all([getPage('page-contact'), getSettings()])
+const {email, phone, address} = settings.contact ?? {}
+// A contact form needs a server endpoint. Add it once the site runs on
+// Cloudflare Workers (e.g. src/pages/api/contact.ts with `prerender = false`).
+---
+
+<BaseLayout lang={lang} title={pick(page.title, lang)} seo={page.seo}>
+  <PageHeader lang={lang} page={page} />
+  <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 md:grid-cols-2">
+    <dl class="space-y-6">
+      {email && (<div><dt class="text-sm text-muted">{t(lang, 'contact.email')}</dt><dd class="mt-1 text-lg"><a href={`mailto:${email}`} class="hover:underline">{email}</a></dd></div>)}
+      {phone && (<div><dt class="text-sm text-muted">{t(lang, 'contact.phone')}</dt><dd class="mt-1 text-lg"><a href={`tel:${phone.replace(/\s/g, '')}`} class="hover:underline">{phone}</a></dd></div>)}
+      {address && (<div><dt class="text-sm text-muted">{t(lang, 'contact.address')}</dt><dd class="mt-1 text-lg whitespace-pre-line">{pick(address, lang)}</dd></div>)}
+    </dl>
+    <PortableText value={pick(page.body, lang)} />
+  </div>
+</BaseLayout>

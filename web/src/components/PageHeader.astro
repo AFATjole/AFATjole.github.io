@@ -1,0 +1,23 @@
+---
+import SanityImage from '@/components/SanityImage.astro'
+import {pick, type Locale} from '@/lib/i18n'
+import type {Page} from '@/lib/sanity/types'
+
+interface Props {
+  lang: Locale
+  page: Page
+}
+const {lang, page} = Astro.props
+---
+
+<section class="mx-auto max-w-7xl px-4 pt-16 pb-12 sm:px-6">
+  <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{pick(page.title, lang)}</h1>
+  {page.intro && <p class="mt-6 max-w-2xl text-lg text-muted">{pick(page.intro, lang)}</p>}
+</section>
+{
+  page.heroImage?.asset && (
+    <div class="mx-auto mb-16 max-w-7xl px-4 sm:px-6">
+      <SanityImage image={page.heroImage} lang={lang} width={1600} aspect={21 / 9} loading="eager" />
+    </div>
+  )
+}

@@ -1,0 +1,17 @@
+---
+// Root URL: send visitors to the default language.
+import {defaultLocale, localePath} from '@/lib/i18n'
+const target = localePath(defaultLocale)
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <link rel="canonical" href={new URL(target, Astro.site)} />
+    <meta name="robots" content="noindex" />
+    <title>Redirecting…</title>
+  </head>
+  <body><a href={target}>{target}</a></body>
+</html>
