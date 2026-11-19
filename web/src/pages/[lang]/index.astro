@@ -23,7 +23,7 @@ const {hero} = home
       ) : null
     }
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-      <h1 class="max-w-4xl text-5xl font-semibold tracking-tight sm:text-7xl">{pick(hero?.heading, lang)}</h1>
+      <h1 class="max-w-4xl text-5xl font-light tracking-tight sm:text-7xl">{pick(hero?.heading, lang)}</h1>
       {hero?.subheading && <p class="mt-6 max-w-2xl text-lg text-muted">{pick(hero.subheading, lang)}</p>}
     </div>
   </section>
@@ -34,7 +34,7 @@ const {hero} = home
     home.featured && home.featured.length > 0 && (
       <section class="mx-auto max-w-7xl px-4 sm:px-6">
         <div class="mb-8 flex items-end justify-between">
-          <h2 class="text-2xl font-semibold">{t(lang, 'nav.work')}</h2>
+          <h2 class="text-2xl font-light">{t(lang, 'nav.work')}</h2>
           <a href={localePath(lang, 'work')} class="text-sm text-muted hover:text-ink">{t(lang, 'work.viewAll')} →</a>
         </div>
         <WorkGrid lang={lang} works={home.featured} />

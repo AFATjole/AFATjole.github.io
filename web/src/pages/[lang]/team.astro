@@ -21,7 +21,7 @@ const [page, team] = await Promise.all([getPage('page-team'), getTeam()])
         team.map((member) => (
           <li>
             <SanityImage image={member.photo} lang={lang} width={600} aspect={3 / 4} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
-            <h2 class="mt-4 font-medium">{pick(member.name, lang)}</h2>
+            <h2 class="mt-4 font-normal">{pick(member.name, lang)}</h2>
             <p class="text-sm text-muted">{pick(member.role, lang)}</p>
             {member.bio && <p class="mt-3 text-sm">{pick(member.bio, lang)}</p>}
           </li>

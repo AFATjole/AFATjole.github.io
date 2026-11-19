@@ -1,8 +1,35 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+/*
+ * Typeface: Plein (Indian Type Foundry, via Fontshare, ITF Free Font License).
+ * Only two weights are used site-wide: 300 (Light) and 400 (Regular).
+ * Plein covers Latin only; Chinese falls back to the system CJK sans.
+ */
+@font-face {
+  font-family: 'Plein';
+  src: url('/fonts/Plein-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plein';
+  src: url('/fonts/Plein-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-sans: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-*: initial;
+  --font-sans: 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+
+  /* Restrict Tailwind's weight utilities to the two allowed weights. */
+  --font-weight-*: initial;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+
   --color-ink: #111111;
   --color-muted: #6b6b6b;
   --color-line: #e5e5e5;
@@ -12,6 +39,26 @@
 
 @layer base {
   html {
-    @apply bg-paper text-ink antialiased;
+    @apply bg-paper font-sans font-normal text-ink antialiased;
+    /* Never fake bold/italic weights the font doesn't ship. */
+    font-synthesis: none;
+  }
+  /* Browser defaults would render these bold (700); keep them at 400. */
+  b,
+  strong,
+  th,
+  optgroup {
+    font-weight: 400;
+  }
+}
+
+/* Typography plugin: map its 500–800 weights onto Light/Regular. */
+@utility prose {
+  font-weight: 400;
+  :where(h1, h2, h3, h4, h5, h6):not(:where([class~='not-prose'] *)) {
+    font-weight: 300;
+  }
+  :where(strong, b, th, dt, a, blockquote, thead th, figcaption):not(:where([class~='not-prose'] *)) {
+    font-weight: 400;
   }
 }
