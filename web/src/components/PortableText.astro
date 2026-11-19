@@ -11,7 +11,7 @@ const {value, class: className} = Astro.props
 
 {
   value && value.length > 0 && (
-    <div class:list={['prose prose-neutral max-w-none', className]}>
+    <div class:list={['prose prose-neutral', className]}>
       <PT value={value as any} />
     </div>
   )

@@ -22,13 +22,15 @@ const {hero} = home
         <SanityImage image={hero.image} lang={lang} width={2400} aspect={16 / 9} loading="eager" class="h-[70vh]" />
       ) : null
     }
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <div class="mx-auto max-w-7xl px-4 pt-20 pb-12 sm:px-6">
       <h1 class="max-w-4xl text-5xl font-normal tracking-tight sm:text-7xl">{pick(hero?.heading, lang)}</h1>
       {hero?.subheading && <p class="mt-6 max-w-2xl text-lg text-muted">{pick(hero.subheading, lang)}</p>}
     </div>
   </section>
 
-  <PortableText value={pick(home.intro, lang)} class="mx-auto mb-20 max-w-3xl px-4 sm:px-6" />
+  <div class="mx-auto mb-24 max-w-7xl px-4 sm:px-6">
+    <PortableText value={pick(home.intro, lang)} class="max-w-3xl" />
+  </div>
 
   {
     home.featured && home.featured.length > 0 && (
