@@ -11,6 +11,9 @@
  * with macOS/iOS, so it shows there and other systems fall back to Plein.
  * To use it everywhere, buy a webfont licence (e.g. Optima nova) and add
  * @font-face rules for it here.
+ *
+ * The temporary BESPOKE wordmark uses Cochin (also commercial, also bundled
+ * with macOS/iOS); other systems fall back to a classic serif.
  */
 @font-face {
   font-family: 'Plein';
@@ -30,6 +33,7 @@
 @theme {
   --font-*: initial;
   --font-sans: 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-logo: 'Cochin', 'Cochin LT Pro', 'Cochin LT Std', Georgia, 'Times New Roman', serif;
   --font-display: 'Optima', 'Optima nova LT Pro', 'Optima LT Std', 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
 
   /* Restrict Tailwind's weight utilities to the two allowed weights. */
