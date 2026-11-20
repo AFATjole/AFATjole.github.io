@@ -7,13 +7,9 @@
  * 400 (Regular) for headings, titles and emphasis.
  * Plein covers Latin only; Chinese falls back to the system CJK sans.
  *
- * Headings use Optima (commercial, Linotype). It is not self-hosted: it ships
- * with macOS/iOS, so it shows there and other systems fall back to Plein.
- * To use it everywhere, buy a webfont licence (e.g. Optima nova) and add
- * @font-face rules for it here.
- *
- * The temporary BESPOKE wordmark uses Cochin (also commercial, also bundled
- * with macOS/iOS); other systems fall back to a classic serif.
+ * Headings and the temporary BESPOKE wordmark use Bacasime Antique
+ * (SIL Open Font License, single weight 400), self-hosted via
+ * @fontsource/bacasime-antique (imported in BaseLayout.astro).
  */
 @font-face {
   font-family: 'Plein';
@@ -33,8 +29,8 @@
 @theme {
   --font-*: initial;
   --font-sans: 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
-  --font-logo: 'Cochin', 'Cochin LT Pro', 'Cochin LT Std', Georgia, 'Times New Roman', serif;
-  --font-display: 'Optima', 'Optima nova LT Pro', 'Optima LT Std', 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-display: 'Bacasime Antique', Georgia, 'Songti SC', 'Noto Serif SC', 'SimSun', serif;
+  --font-logo: var(--font-display);
 
   /* Restrict Tailwind's weight utilities to the two allowed weights. */
   --font-weight-*: initial;
