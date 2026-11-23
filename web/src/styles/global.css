@@ -3,9 +3,9 @@
 
 /*
  * Typeface: Plein (Indian Type Foundry, via Fontshare, ITF Free Font License).
- * Two weights only: 300 for large type and body, 400 for small titles and
- * labels (keeps ~16px text crisp). Hierarchy comes from size and the
- * black/grey pair, never from bold.
+ * All text uses Regular 400 (the Light 300 face stays declared but is
+ * currently unused, so browsers don't download it). Hierarchy comes from
+ * size and the black/grey pair, never from bold.
  * Plein covers Latin only; Chinese falls back to the system CJK sans.
  *
  * The temporary BESPOKE wordmark uses Bacasime Antique (SIL OFL), self-hosted
@@ -44,7 +44,7 @@
 
 @layer base {
   html {
-    @apply bg-paper font-sans font-light text-ink antialiased;
+    @apply bg-paper font-sans font-normal text-ink antialiased;
     font-size: 16px;
     line-height: 1.6;
     /* Never fake bold/italic weights the font doesn't ship. */
@@ -64,13 +64,13 @@
  *
  * | class     | use                       | size     | line-height | tracking | weight | colour |
  * |-----------|---------------------------|----------|-------------|----------|--------|--------|
- * | t-display | home / page headline      | 86 / 44  | 1.0         | -1.25px  | 300    | ink    |
+ * | t-display | home / page headline      | 86 / 44  | 1.0         | -1.25px  | 400    | ink    |
  * |   .gray   | headline second line      |          |             |          |        | muted  |
- * | t-h2      | section title             | 40 / 28  | 1.15        | -1.25px  | 300    | ink    |
- * | t-h3      | place names, large labels | 50 / 32  | 1.0         | -1.25px  | 300    | muted  |
+ * | t-h2      | section title             | 40 / 28  | 1.15        | -1.25px  | 400    | ink    |
+ * | t-h3      | place names, large labels | 50 / 32  | 1.0         | -1.25px  | 400    | muted  |
  * | t-title   | project name (uppercase)  | 16 / 15  | 22px        | 0.2px    | 400    | ink    |
- * | t-sub     | narrative subtitle        | 16 / 15  | 22px        | 0        | 300    | muted  |
- * | t-body    | body copy                 | 16 / 15  | 1.6         | 0        | 300    | ink    |
+ * | t-sub     | narrative subtitle        | 16 / 15  | 22px        | 0        | 400    | muted  |
+ * | t-body    | body copy                 | 16 / 15  | 1.6         | 0        | 400    | ink    |
  * | t-label   | nav, small labels (upper) | 14 / 13  | 1.4         | 0.5px    | 400    | ink    |
  *
  * Spacing: 72–80px above/below headlines, 64–80px between sections.
@@ -79,7 +79,7 @@
   font-size: clamp(44px, 6vw, 86px);
   line-height: 1;
   letter-spacing: -1.25px;
-  font-weight: 300;
+  font-weight: 400;
   & .gray {
     color: var(--color-muted);
   }
@@ -88,13 +88,13 @@
   font-size: clamp(28px, 3vw, 40px);
   line-height: 1.15;
   letter-spacing: -1.25px;
-  font-weight: 300;
+  font-weight: 400;
 }
 @utility t-h3 {
   font-size: clamp(32px, 3.6vw, 50px);
   line-height: 1;
   letter-spacing: -1.25px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--color-muted);
 }
 @utility t-title {
@@ -110,7 +110,7 @@
 @utility t-sub {
   font-size: 16px;
   line-height: 22px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--color-muted);
   @media (max-width: 640px) {
     font-size: 15px;
@@ -119,7 +119,7 @@
 @utility t-body {
   font-size: 16px;
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
   max-width: 560px;
   @media (max-width: 640px) {
     font-size: 15px;
@@ -146,7 +146,7 @@
   --tw-prose-captions: var(--color-muted);
   font-size: 16px;
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
   max-width: 560px;
   @media (max-width: 640px) {
     font-size: 15px;
@@ -155,7 +155,7 @@
     font-size: clamp(28px, 3vw, 40px);
     line-height: 1.15;
     letter-spacing: -1.25px;
-    font-weight: 300;
+    font-weight: 400;
     margin-top: 2em;
     margin-bottom: 0.75em;
   }
@@ -174,6 +174,6 @@
     font-weight: 400;
   }
   :where(a, blockquote, figcaption):not(:where([class~='not-prose'] *)) {
-    font-weight: 300;
+    font-weight: 400;
   }
 }
