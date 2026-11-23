@@ -13,5 +13,5 @@ const page = await getPage('page-about')
 
 <BaseLayout lang={lang} title={pick(page.title, lang)} seo={page.seo}>
   <PageHeader lang={lang} page={page} />
-  <PortableText value={pick(page.body, lang)} class="mx-auto max-w-3xl px-4 sm:px-6" />
+  <PortableText value={pick(page.body, lang)} class="mx-auto max-w-7xl px-4 sm:px-6" />
 </BaseLayout>

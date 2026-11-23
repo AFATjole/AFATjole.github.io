@@ -3,13 +3,13 @@
 
 /*
  * Typeface: Plein (Indian Type Foundry, via Fontshare, ITF Free Font License).
- * Only two weights are used site-wide: 300 (Light) for body text and
- * 400 (Regular) for headings, titles and emphasis.
+ * Two weights only: 300 for large type and body, 400 for small titles and
+ * labels (keeps ~16px text crisp). Hierarchy comes from size and the
+ * black/grey pair, never from bold.
  * Plein covers Latin only; Chinese falls back to the system CJK sans.
  *
- * Headings and the temporary BESPOKE wordmark use Bacasime Antique
- * (SIL Open Font License, single weight 400), self-hosted via
- * @fontsource/bacasime-antique (imported in BaseLayout.astro).
+ * The temporary BESPOKE wordmark uses Bacasime Antique (SIL OFL), self-hosted
+ * via @fontsource/bacasime-antique (imported in BaseLayout.astro).
  */
 @font-face {
   font-family: 'Plein';
@@ -29,34 +29,26 @@
 @theme {
   --font-*: initial;
   --font-sans: 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
-  --font-display: 'Bacasime Antique', Georgia, 'Songti SC', 'Noto Serif SC', 'SimSun', serif;
-  --font-logo: var(--font-display);
+  --font-logo: 'Bacasime Antique', Georgia, serif;
 
   /* Restrict Tailwind's weight utilities to the two allowed weights. */
   --font-weight-*: initial;
   --font-weight-light: 300;
   --font-weight-normal: 400;
 
-  --color-ink: #111111;
-  --color-muted: #6b6b6b;
+  --color-ink: #000000;
+  --color-muted: #9c9d9d;
   --color-line: #e5e5e5;
   --color-paper: #ffffff;
-  --color-accent: #b4232a;
 }
 
 @layer base {
   html {
     @apply bg-paper font-sans font-light text-ink antialiased;
+    font-size: 16px;
+    line-height: 1.6;
     /* Never fake bold/italic weights the font doesn't ship. */
     font-synthesis: none;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-display);
   }
   /* Browser defaults would render these bold (700); keep them at 400. */
   b,
@@ -67,10 +59,118 @@
   }
 }
 
-/* Typography plugin: map its 500–800 weights onto Light/Regular. */
-@utility prose {
+/*
+ * Type scale (desktop / mobile ≤ 640px)
+ *
+ * | class     | use                       | size     | line-height | tracking | weight | colour |
+ * |-----------|---------------------------|----------|-------------|----------|--------|--------|
+ * | t-display | home / page headline      | 86 / 44  | 1.0         | -1.25px  | 300    | ink    |
+ * |   .gray   | headline second line      |          |             |          |        | muted  |
+ * | t-h2      | section title             | 40 / 28  | 1.15        | -1.25px  | 300    | ink    |
+ * | t-h3      | place names, large labels | 50 / 32  | 1.0         | -1.25px  | 300    | muted  |
+ * | t-title   | project name (uppercase)  | 16 / 15  | 22px        | 0.2px    | 400    | ink    |
+ * | t-sub     | narrative subtitle        | 16 / 15  | 22px        | 0        | 300    | muted  |
+ * | t-body    | body copy                 | 16 / 15  | 1.6         | 0        | 300    | ink    |
+ * | t-label   | nav, small labels (upper) | 14 / 13  | 1.4         | 0.5px    | 400    | ink    |
+ *
+ * Spacing: 72–80px above/below headlines, 64–80px between sections.
+ */
+@utility t-display {
+  font-size: clamp(44px, 6vw, 86px);
+  line-height: 1;
+  letter-spacing: -1.25px;
   font-weight: 300;
-  :where(h1, h2, h3, h4, h5, h6, strong, b, th, dt, thead th):not(:where([class~='not-prose'] *)) {
+  & .gray {
+    color: var(--color-muted);
+  }
+}
+@utility t-h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -1.25px;
+  font-weight: 300;
+}
+@utility t-h3 {
+  font-size: clamp(32px, 3.6vw, 50px);
+  line-height: 1;
+  letter-spacing: -1.25px;
+  font-weight: 300;
+  color: var(--color-muted);
+}
+@utility t-title {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+  text-transform: uppercase;
+  @media (max-width: 640px) {
+    font-size: 15px;
+  }
+}
+@utility t-sub {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 300;
+  color: var(--color-muted);
+  @media (max-width: 640px) {
+    font-size: 15px;
+  }
+}
+@utility t-body {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 560px;
+  @media (max-width: 640px) {
+    font-size: 15px;
+  }
+}
+@utility t-label {
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  text-transform: uppercase;
+  @media (max-width: 640px) {
+    font-size: 13px;
+  }
+}
+
+/* Rich text from the CMS follows the same scale. */
+@utility prose {
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-links: var(--color-ink);
+  --tw-prose-quotes: var(--color-muted);
+  --tw-prose-captions: var(--color-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 560px;
+  @media (max-width: 640px) {
+    font-size: 15px;
+  }
+  :where(h2):not(:where([class~='not-prose'] *)) {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -1.25px;
+    font-weight: 300;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+  :where(h3):not(:where([class~='not-prose'] *)) {
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.2px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  :where(p):not(:where([class~='not-prose'] *)) {
+    margin-top: 0;
+    margin-bottom: 1.25em;
+  }
+  :where(strong, b, th, dt, thead th):not(:where([class~='not-prose'] *)) {
     font-weight: 400;
   }
   :where(a, blockquote, figcaption):not(:where([class~='not-prose'] *)) {

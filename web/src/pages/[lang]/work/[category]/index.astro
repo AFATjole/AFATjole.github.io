@@ -21,11 +21,11 @@ const title = pick(category.title, lang)
 ---
 
 <BaseLayout lang={lang} title={title} description={pick(category.description, lang)}>
-  <section class="mx-auto max-w-7xl px-4 pt-16 pb-12 sm:px-6">
-    <h1 class="text-4xl font-normal tracking-tight sm:text-5xl">{title}</h1>
-    {category.description && <p class="mt-6 max-w-2xl text-lg text-muted">{pick(category.description, lang)}</p>}
+  <section class="mx-auto max-w-7xl px-4 pt-20 pb-20 sm:px-6">
+    <h1 class="t-display">{title}</h1>
+    {category.description && <p class="t-sub mt-8 max-w-[560px]">{pick(category.description, lang)}</p>}
   </section>
-  <div class="mx-auto max-w-7xl space-y-12 px-4 sm:px-6">
+  <div class="mx-auto max-w-7xl space-y-16 px-4 sm:px-6">
     <CategoryNav lang={lang} categories={categories} active={category.slug} />
     <WorkGrid lang={lang} works={works} />
   </div>

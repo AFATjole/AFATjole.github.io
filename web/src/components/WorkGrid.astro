@@ -12,7 +12,7 @@ const {lang, works} = Astro.props
 
 {
   works.length === 0 ? (
-    <p class="text-muted">{t(lang, 'work.empty')}</p>
+    <p class="t-sub">{t(lang, 'work.empty')}</p>
   ) : (
     <ul class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
       {works.map((work) => (
@@ -28,8 +28,8 @@ const {lang, works} = Astro.props
                 class="transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <p class="mt-4 text-xs tracking-wider text-muted uppercase">{pick(work.category?.title, lang)}</p>
-            <h3 class="mt-1 text-lg font-normal">{pick(work.title, lang)}</h3>
+            <h3 class="t-title mt-5">{pick(work.title, lang)}</h3>
+            <p class="t-sub">{pick(work.summary, lang) ?? pick(work.category?.title, lang)}</p>
           </a>
         </li>
       ))}

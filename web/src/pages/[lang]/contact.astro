@@ -17,10 +17,10 @@ const {email, phone, address} = settings.contact ?? {}
 <BaseLayout lang={lang} title={pick(page.title, lang)} seo={page.seo}>
   <PageHeader lang={lang} page={page} />
   <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 md:grid-cols-2">
-    <dl class="space-y-6">
-      {email && (<div><dt class="text-sm text-muted">{t(lang, 'contact.email')}</dt><dd class="mt-1 text-lg"><a href={`mailto:${email}`} class="hover:underline">{email}</a></dd></div>)}
-      {phone && (<div><dt class="text-sm text-muted">{t(lang, 'contact.phone')}</dt><dd class="mt-1 text-lg"><a href={`tel:${phone.replace(/\s/g, '')}`} class="hover:underline">{phone}</a></dd></div>)}
-      {address && (<div><dt class="text-sm text-muted">{t(lang, 'contact.address')}</dt><dd class="mt-1 text-lg whitespace-pre-line">{pick(address, lang)}</dd></div>)}
+    <dl class="space-y-10">
+      {email && (<div><dt class="t-label text-muted">{t(lang, 'contact.email')}</dt><dd class="t-h2 mt-2"><a href={`mailto:${email}`} class="hover:underline">{email}</a></dd></div>)}
+      {phone && (<div><dt class="t-label text-muted">{t(lang, 'contact.phone')}</dt><dd class="t-h2 mt-2"><a href={`tel:${phone.replace(/\s/g, '')}`} class="hover:underline">{phone}</a></dd></div>)}
+      {address && (<div><dt class="t-label text-muted">{t(lang, 'contact.address')}</dt><dd class="t-h2 mt-2 whitespace-pre-line">{pick(address, lang)}</dd></div>)}
     </dl>
     <PortableText value={pick(page.body, lang)} />
   </div>

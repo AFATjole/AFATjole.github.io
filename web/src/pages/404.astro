@@ -8,9 +8,8 @@ const lang = isLocale(Astro.params.lang) ? Astro.params.lang : defaultLocale
 ---
 
 <BaseLayout lang={lang} title={t(lang, 'notFound')}>
-  <section class="mx-auto max-w-7xl px-4 py-32 text-center sm:px-6">
-    <p class="font-display text-6xl font-normal">404</p>
-    <p class="mt-4 text-muted">{t(lang, 'notFound')}</p>
-    <a href={localePath(lang)} class="mt-8 inline-block border-b border-ink">{t(lang, 'backHome')}</a>
+  <section class="mx-auto max-w-7xl px-4 py-32 sm:px-6">
+    <h1 class="t-display">404<br /><span class="gray">{t(lang, 'notFound')}</span></h1>
+    <a href={localePath(lang)} class="t-label mt-12 inline-block border-b border-ink pb-1">{t(lang, 'backHome')}</a>
   </section>
 </BaseLayout>

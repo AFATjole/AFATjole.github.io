@@ -22,22 +22,24 @@ const {hero} = home
         <SanityImage image={hero.image} lang={lang} width={2400} aspect={16 / 9} loading="eager" class="h-[70vh]" />
       ) : null
     }
-    <div class="mx-auto max-w-7xl px-4 pt-20 pb-12 sm:px-6">
-      <h1 class="max-w-4xl text-5xl font-normal tracking-tight sm:text-7xl">{pick(hero?.heading, lang)}</h1>
-      {hero?.subheading && <p class="mt-6 max-w-2xl text-lg text-muted">{pick(hero.subheading, lang)}</p>}
+    <div class="mx-auto max-w-7xl px-4 pt-20 pb-20 sm:px-6">
+      <h1 class="t-display max-w-5xl">
+        {pick(hero?.heading, lang)}
+        {hero?.subheading && (<><br /><span class="gray">{pick(hero.subheading, lang)}</span></>)}
+      </h1>
     </div>
   </section>
 
-  <div class="mx-auto mb-24 max-w-7xl px-4 sm:px-6">
-    <PortableText value={pick(home.intro, lang)} class="max-w-3xl" />
+  <div class="mx-auto mb-20 max-w-7xl px-4 sm:px-6">
+    <PortableText value={pick(home.intro, lang)} />
   </div>
 
   {
     home.featured && home.featured.length > 0 && (
       <section class="mx-auto max-w-7xl px-4 sm:px-6">
-        <div class="mb-8 flex items-end justify-between">
-          <h2 class="text-2xl font-normal">{t(lang, 'nav.work')}</h2>
-          <a href={localePath(lang, 'work')} class="text-sm text-muted hover:text-ink">{t(lang, 'work.viewAll')} →</a>
+        <div class="mb-10 flex items-end justify-between gap-6">
+          <h2 class="t-h2">{t(lang, 'nav.work')}</h2>
+          <a href={localePath(lang, 'work')} class="t-label shrink-0 hover:text-muted">{t(lang, 'work.viewAll')} →</a>
         </div>
         <WorkGrid lang={lang} works={home.featured} />
       </section>

@@ -9,13 +9,13 @@ interface Props {
   active?: string
 }
 const {lang, categories, active} = Astro.props
-const link = 'border-b-2 pb-1 text-sm transition-colors'
+const link = 't-label -mb-px border-b pb-3 transition-colors'
 ---
 
-<nav class="flex flex-wrap gap-6 border-b border-line" aria-label={t(lang, 'nav.work')}>
+<nav class="flex flex-wrap gap-8 border-b border-line" aria-label={t(lang, 'nav.work')}>
   <a
     href={localePath(lang, 'work')}
-    class:list={[link, !active ? 'border-ink font-normal text-ink' : 'border-transparent text-muted hover:text-ink']}
+    class:list={[link, !active ? 'border-ink text-ink' : 'border-transparent text-muted hover:text-ink']}
   >
     {t(lang, 'work.all')}
   </a>
@@ -23,7 +23,7 @@ const link = 'border-b-2 pb-1 text-sm transition-colors'
     categories.map((c) => (
       <a
         href={localePath(lang, `work/${c.slug}`)}
-        class:list={[link, active === c.slug ? 'border-ink font-normal text-ink' : 'border-transparent text-muted hover:text-ink']}
+        class:list={[link, active === c.slug ? 'border-ink text-ink' : 'border-transparent text-muted hover:text-ink']}
       >
         {pick(c.title, lang)}
       </a>

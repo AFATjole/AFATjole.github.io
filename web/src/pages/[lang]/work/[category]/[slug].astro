@@ -21,26 +21,26 @@ const title = pick(work.title, lang)
 ---
 
 <BaseLayout lang={lang} title={title} description={pick(work.summary, lang)} seo={work.seo}>
-  <article class="mx-auto max-w-7xl px-4 pt-16 sm:px-6">
-    <a href={localePath(lang, `work/${work.category?.slug}`)} class="text-sm text-muted hover:text-ink">
+  <article class="mx-auto max-w-7xl px-4 pt-20 sm:px-6">
+    <a href={localePath(lang, `work/${work.category?.slug}`)} class="t-label text-muted hover:text-ink">
       ← {pick(work.category?.title, lang) ?? t(lang, 'work.back')}
     </a>
-    <header class="mt-6 grid gap-8 lg:grid-cols-3">
-      <h1 class="text-4xl font-normal tracking-tight sm:text-5xl lg:col-span-2">{title}</h1>
-      <dl class="grid grid-cols-2 gap-4 text-sm">
-        {work.client && (<div><dt class="text-muted">{t(lang, 'work.client')}</dt><dd>{work.client}</dd></div>)}
-        {work.year && (<div><dt class="text-muted">{t(lang, 'work.year')}</dt><dd>{work.year}</dd></div>)}
+    <header class="mt-10 grid gap-10 lg:grid-cols-3">
+      <h1 class="t-display lg:col-span-2">{title}</h1>
+      <dl class="grid grid-cols-2 gap-6 self-end">
+        {work.client && (<div><dt class="t-label text-muted">{t(lang, 'work.client')}</dt><dd class="t-title mt-1">{work.client}</dd></div>)}
+        {work.year && (<div><dt class="t-label text-muted">{t(lang, 'work.year')}</dt><dd class="t-title mt-1">{work.year}</dd></div>)}
       </dl>
     </header>
-    {work.summary && <p class="mt-8 max-w-3xl text-lg text-muted">{pick(work.summary, lang)}</p>}
+    {work.summary && <p class="t-sub mt-8 max-w-[560px]">{pick(work.summary, lang)}</p>}
 
-    <div class="mt-12">
+    <div class="mt-20">
       <SanityImage image={work.coverImage} lang={lang} width={1600} loading="eager" />
     </div>
 
-    <PortableText value={pick(work.body, lang)} class="mx-auto mt-16 max-w-3xl" />
+    <PortableText value={pick(work.body, lang)} class="mt-20" />
 
-    <div class="mt-16 space-y-6">
+    <div class="mt-20 space-y-6">
       {
         work.gallery?.map((item) =>
           item._type === 'video' ? (

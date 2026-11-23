@@ -11,16 +11,16 @@ const siteName = pick(settings.siteName, lang) ?? ''
 const {email, phone} = settings.contact ?? {}
 ---
 
-<footer class="mt-24 border-t border-line">
-  <div class="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
+<footer class="mt-20 border-t border-line">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-3">
     <div>
-      <p class="font-normal">{siteName}</p>
-      {settings.tagline && <p class="mt-2 text-sm text-muted">{pick(settings.tagline, lang)}</p>}
+      <p class="t-title">{siteName}</p>
+      {settings.tagline && <p class="t-sub mt-2">{pick(settings.tagline, lang)}</p>}
     </div>
-    <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label="Footer">
-      {navigation.map((item) => <a href={localePath(lang, item.path)} class="text-muted hover:text-ink">{t(lang, item.key)}</a>)}
+    <nav class="t-label flex flex-wrap gap-x-6 gap-y-2" aria-label="Footer">
+      {navigation.map((item) => <a href={localePath(lang, item.path)} class="hover:text-muted">{t(lang, item.key)}</a>)}
     </nav>
-    <div class="space-y-1 text-sm text-muted md:text-right">
+    <div class="t-sub space-y-1 md:text-right">
       {email && <a href={`mailto:${email}`} class="block hover:text-ink">{email}</a>}
       {phone && <a href={`tel:${phone.replace(/\s/g, '')}`} class="block hover:text-ink">{phone}</a>}
       {
@@ -30,5 +30,5 @@ const {email, phone} = settings.contact ?? {}
       }
     </div>
   </div>
-  <p class="pb-8 text-center text-xs text-muted">© {new Date().getFullYear()} {siteName}</p>
+  <p class="t-label pb-10 text-center text-muted">© {new Date().getFullYear()} {siteName}</p>
 </footer>
