@@ -2,39 +2,13 @@
 @plugin '@tailwindcss/typography';
 
 /*
- * Typeface: Plein (Indian Type Foundry, via Fontshare, ITF Free Font License).
- * All text uses Regular 400 (the Light 300 face stays declared but is
- * currently unused, so browsers don't download it). Hierarchy comes from
- * size and the black/grey pair, never from bold.
- * Plein covers Latin only; Chinese falls back to the system CJK sans.
- *
- * The temporary BESPOKE wordmark uses Bacasime Antique (SIL OFL), self-hosted
- * via @fontsource/bacasime-antique (imported in BaseLayout.astro).
+ * Typeface: system Helvetica for Latin, PingFang SC for Chinese (both ship
+ * with macOS/iOS; Windows/Android fall back to Arial / their CJK sans).
+ * No web fonts are loaded. Placeholder until the typography is redesigned.
  */
-@font-face {
-  font-family: 'Plein';
-  src: url('/fonts/Plein-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Plein';
-  src: url('/fonts/Plein-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
   --font-*: initial;
-  --font-sans: 'Plein', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
-  --font-logo: 'Bacasime Antique', Georgia, serif;
-
-  /* Restrict Tailwind's weight utilities to the two allowed weights. */
-  --font-weight-*: initial;
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
+  --font-sans: Helvetica, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', Arial, 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
 
   --color-ink: #000000;
   --color-muted: #9c9d9d;
@@ -47,8 +21,6 @@
     @apply bg-paper font-sans font-normal text-ink antialiased;
     font-size: 16px;
     line-height: 1.6;
-    /* Never fake bold/italic weights the font doesn't ship. */
-    font-synthesis: none;
   }
   /* Browser defaults would render these bold (700); keep them at 400. */
   b,
